@@ -14,8 +14,43 @@
   </div>
 </section>
 <section>
-  <div class="columns is-multiline">
-    @forelse($projects as $project)
+  <div class="container">
+    <!-- Main container -->
+    <nav class="level">
+      <!-- Left side -->
+      <div class="level-left">
+        <div class="level-item">
+          <p class="subtitle is-5">
+            <strong>{{ $projects->count() }}</strong> proyectos
+          </p>
+        </div>
+        <div class="level-item">
+          <div class="field has-addons">
+            <p class="control">
+              <input class="input" type="text" placeholder="Find a post">
+            </p>
+            <p class="control">
+              <button class="button">
+                Search
+              </button>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right side -->
+      <div class="level-right">
+        <p class="level-item"><a href="{{ route('project.index') }}">Todos</a></p>
+        <p class="level-item"><a href="{{ route('project.index', ['active']) }}">Activos</a></p>
+        <p class="level-item"><a href="{{ route('project.index', ['featured']) }}">Destacados</a></p>
+      </div>
+    </nav>
+  </div>
+</section>
+<section>
+  <div class="container">
+    <div class="columns is-multiline">
+      @forelse($projects as $project)
       <div class="column is-one-quarter">
         <div class="card">
           <div class="card-image">
@@ -26,7 +61,14 @@
           <div class="card-content">
             <div class="media">
               <div class="media-content">
-                <p class="title is-4">{{ $project->name }}</p>
+                <p class="title is-4">
+                  @if($project->featured)
+                  <span class="icon">
+                    <i class="fas fa-star"></i>
+                  </span>
+                  @endif
+                  {{ $project->name }}
+                </p>
                 <p class="subtitle is-6">{{ $project->country->name }}</p>
               </div>
             </div>
@@ -35,11 +77,12 @@
           </div>
         </div>
       </div>
-    @empty
+      @empty
       <div class="column">
         <h3>No hay resultados</h3>
       </div>
-    @endforelse
+      @endforelse
+    </div>
   </div>
 </section>
 @endsection

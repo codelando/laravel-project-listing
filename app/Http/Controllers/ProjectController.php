@@ -12,9 +12,19 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $projects = Project::with('country')->get();
+        $projects = Project::with('country');
+
+        if($request->has('featured')) {
+          $projects->where('featured', true);
+        }
+
+        if($request->has('active')) {
+          $projects->where('active', true);
+        }
+
+        $projects = $projects->get();
 
         return view('project.index', [
           'projects' => $projects,
