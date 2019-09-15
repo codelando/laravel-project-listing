@@ -9,4 +9,8 @@ class Country extends Model
     protected $table = 'countries';
 
     protected $fillable = ['name'];
+
+    public function projects() {
+      return $this->hasMany(Project::class);
+    }
 }

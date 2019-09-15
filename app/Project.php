@@ -20,4 +20,8 @@ class Project extends Model
     protected $dates = [
       'active_at',
     ];
+
+    public function country() {
+      return $this->belongsTo(Country::class);
+    }
 }
