@@ -10,6 +10,7 @@ $factory->define(Project::class, function (Faker $faker) {
 
     return [
         'country_id' => $countries->random()->id,
+        'name' => $faker->unique()->company,
         'short_desc' => $faker->text(255),
         'long_desc' => $faker->text(),
         'active' => rand(0,1),
