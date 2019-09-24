@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<section class="hero is-medium is-primary is-bold">
+<section class="hero is-medium is-primary is-info">
   <div class="hero-body">
     <div class="container">
       <h1 class="title">
@@ -13,7 +13,7 @@
     </div>
   </div>
 </section>
-<section>
+<section class="project-nav">
   <div class="container">
     <!-- Main container -->
     <nav class="level">
@@ -25,16 +25,18 @@
           </p>
         </div>
         <div class="level-item">
-          <div class="field has-addons">
-            <p class="control">
-              <input class="input" type="text" placeholder="Find a post">
-            </p>
-            <p class="control">
-              <button class="button">
-                Search
-              </button>
-            </p>
-          </div>
+          <form method="get">
+            <div class="field has-addons">
+              <p class="control">
+                <input class="input" type="text" name="name" value="{{ old('name') }}" placeholder="Buscar un proyecto">
+              </p>
+              <p class="control">
+                <button class="button">
+                  Buscar
+                </button>
+              </p>
+            </div>
+          </form>
         </div>
       </div>
 
@@ -47,33 +49,31 @@
     </nav>
   </div>
 </section>
-<section>
+<section class="project-list">
   <div class="container">
     <div class="columns is-multiline">
       @forelse($projects as $project)
-      <div class="column is-one-quarter">
+      <div class="column is-one-third">
         <div class="card">
           <div class="card-image">
             <figure class="image is-16by9">
-              <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+              <img src="{{ asset('img/logo-client.jpg') }}" alt="Placeholder image">
             </figure>
           </div>
           <div class="card-content">
             <div class="media">
               <div class="media-content">
-                <p class="title is-4">
+                <p class="title is-6">
+                  {{ $project->name }}
                   @if($project->featured)
                   <span class="icon">
                     <i class="fas fa-star"></i>
                   </span>
                   @endif
-                  {{ $project->name }}
                 </p>
                 <p class="subtitle is-6">{{ $project->country->name }}</p>
               </div>
             </div>
-
-            <div class="content">{{ $project->short_desc }}</div>
           </div>
         </div>
       </div>
